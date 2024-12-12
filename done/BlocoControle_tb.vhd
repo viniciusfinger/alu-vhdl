@@ -7,7 +7,6 @@ end BlocoControle_tb;
 
 architecture Behavioral of BlocoControle_tb is
 
-    -- Component Declaration for the Unit Under Test (UUT)
     component BlocoControle
         Port ( A : in  STD_LOGIC_VECTOR (7 downto 0);
                B : in  STD_LOGIC_VECTOR (7 downto 0);
@@ -19,7 +18,6 @@ architecture Behavioral of BlocoControle_tb is
                Overflow : out  STD_LOGIC);
     end component;
 
-    -- Signals for testbench
     signal A : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
     signal B : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
     signal Opcode : STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
@@ -29,12 +27,10 @@ architecture Behavioral of BlocoControle_tb is
     signal Done : STD_LOGIC;
     signal Overflow : STD_LOGIC;
 
-    -- Clock period definition
     constant Clock_period : time := 10 ns;
 
 begin
 
-    -- Instantiate the Unit Under Test (UUT)
     uut: BlocoControle
         Port map (
             A => A,
@@ -47,7 +43,6 @@ begin
             Overflow => Overflow
         );
 
-    -- Clock process definitions
     Clock_process : process
     begin
         Clock <= '0';
@@ -56,17 +51,16 @@ begin
         wait for Clock_period / 2;
     end process;
 
-    -- Stimulus process
     stim_proc: process
     begin
-        -- Initialize Inputs
+        --inicializa os valores
         A <= "00000000";
         B <= "00000000";
         Opcode <= "000";
         Resetar_Carregar <= '0';
         wait for 100 ns;
 
-        -- Test 1: AND Operation
+        --teste 1: And
         A <= "10101010";
         B <= "11001100";
         Opcode <= "000";
@@ -75,7 +69,7 @@ begin
         Resetar_Carregar <= '0';
         wait for 50 ns;
 
-        -- Test 2: OR Operation
+        --teste 2: Or
         A <= "10101010";
         B <= "11001100";
         Opcode <= "001";
@@ -84,7 +78,7 @@ begin
         Resetar_Carregar <= '0';
         wait for 50 ns;
 
-        -- Test 3: XOR Operation
+        --teste 3: Xor
         A <= "10101010";
         B <= "11001100";
         Opcode <= "010";
@@ -93,7 +87,7 @@ begin
         Resetar_Carregar <= '0';
         wait for 50 ns;
 
-        -- Test 4: NOT A Operation
+        --teste 4: Not A
         A <= "10101010";
         Opcode <= "011";
         Resetar_Carregar <= '1';
@@ -101,7 +95,7 @@ begin
         Resetar_Carregar <= '0';
         wait for 50 ns;
 
-        -- Test 5: ADD Operation
+        --teste 5: Adição
         A <= "00001111";
         B <= "00000001";
         Opcode <= "100";
@@ -110,7 +104,7 @@ begin
         Resetar_Carregar <= '0';
         wait for 50 ns;
 
-        -- Test 6: SUB Operation
+        --teste 6: Subtração
         A <= "00001111";
         B <= "00000001";
         Opcode <= "101";
@@ -119,7 +113,7 @@ begin
         Resetar_Carregar <= '0';
         wait for 50 ns;
 
-        -- Test 7: Shift Right Operation
+        --teste 7: Shift a direita
         A <= "10101010";
         B <= "00000010";
         Opcode <= "110";
@@ -128,7 +122,6 @@ begin
         Resetar_Carregar <= '0';
         wait for 50 ns;
 
-        -- End simulation
         wait;
     end process;
 
